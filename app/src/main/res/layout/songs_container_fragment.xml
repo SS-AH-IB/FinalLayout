@@ -2,21 +2,19 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/list_song_items"
         android:fitsSystemWindows="true"
         android:padding="5dp"
-        android:scrollbars="vertical"
-        android:scrollbarAlwaysDrawVerticalTrack="true"
-        android:scrollbarStyle="insideInset"
-        android:scrollbarFadeDuration="5000"
-        android:scrollbarSize="50dp">
+        tools:listitem="@layout/single_song_fragment">
 
     </android.support.v7.widget.RecyclerView>
 

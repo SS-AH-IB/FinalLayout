@@ -1,23 +1,19 @@
 package saiplayer.triode.com.finallayout;
 
-import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -38,19 +34,13 @@ public class MainActivity extends FragmentActivity implements SongsFargment.OnSo
     View mainContent;
     View drawer_top_section_view;
 
-    ArrayList<SongsDataProvider> dataProviders=new ArrayList<SongsDataProvider>();
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        /*FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-        SlideMenuFragment slideMenuFragment=new SlideMenuFragment();
-        fragmentTransaction.add(R.id.drawer_view,slideMenuFragment);
-        fragmentTransaction.commit();*/
 
         category_view=(FrameLayout)findViewById(R.id.category_content);
 
@@ -100,73 +90,25 @@ public class MainActivity extends FragmentActivity implements SongsFargment.OnSo
         pixelColor=Color.argb(background_alpha,background_red,background_green,background_blue);
         drawerContent.setBackgroundColor(pixelColor);
 
+
         //drawerContent.setAlpha((float) 0.40);
 
 
-        if(ContextCompat.checkSelfPermission(MainActivity.this,
-                android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-
-            if(ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE)){
-                ActivityCompat.requestPermissions(MainActivity.this,new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE},MY_PERMISSION_REQYEST);
-            }
-            else {
-                ActivityCompat.requestPermissions(MainActivity.this,new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE},MY_PERMISSION_REQYEST);
-            }
-
-        }
-        else {
-
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-            SongsFargment songsFargment=new SongsFargment();
-            fragmentTransaction.add(R.id.category_content,songsFargment);
-            fragmentTransaction.commit();
-            //new loadingSongs().execute();
-
-
-        }
-
-
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        switch (requestCode)
-        {
-            case MY_PERMISSION_REQYEST:{
-                if (grantResults.length> 0 && grantResults[0]== PackageManager.PERMISSION_GRANTED){
-                    if(ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE)==
-                            PackageManager.PERMISSION_GRANTED){
-                        Toast.makeText(this,"permission granted",Toast.LENGTH_SHORT).show();
-
-                        SongsFargment songsFargment=new SongsFargment();
-                        FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction().detach(songsFargment).attach(songsFargment);
-                        //FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-                        fragmentManager.add(R.id.category_content,songsFargment);
-                        fragmentManager.commit();
-
-
-
-                    }
-                }
-                else
-                {
-                    Toast.makeText(this,"not granted",Toast.LENGTH_SHORT).show();
-                    finish();
-                }
-            }
-        }
+        SongsFargment songsFargment=new SongsFargment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.executePendingTransactions();
+        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.category_content,songsFargment);
+        fragmentTransaction.commit();
 
     }
 
 
     @Override
-    public void onSongPressed(int songPosition,ArrayList<SongsDataProvider> providerArrayList) {
+    public void onSongPressed(int songPosition, ArrayList<String> allSongTitle, ArrayList<String> allArtists, ArrayList<String> songDetails, ArrayList<String> allSongPaths, ArrayList<Long> allSongAlbum_ID, Cursor songCursor) {
 
-        dataProviders=providerArrayList;
-        main_drawer_container.setBackground(new BitmapDrawable(getResources(),dataProviders.get(songPosition).getAllAlbumarts()));
+
+
 
     }
-
 }

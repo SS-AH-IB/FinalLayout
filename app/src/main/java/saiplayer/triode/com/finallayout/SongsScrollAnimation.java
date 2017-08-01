@@ -14,13 +14,13 @@ public class SongsScrollAnimation {
 
         AnimatorSet animatorSet=new AnimatorSet();
 
-        ObjectAnimator translateY = ObjectAnimator.ofFloat(holder.itemView, "translationY" , scrollState==true ? 200 : -200,0);
-        translateY.setDuration(1000);
+        ObjectAnimator translateY = ObjectAnimator.ofFloat(holder.itemView, "translationY" , scrollState==true ? 500 : -500,0);
+        translateY.setDuration(500);
 
-        ObjectAnimator translateX = ObjectAnimator.ofFloat(holder.itemView, "translationX" , -50,50,-20,20,0);
-        translateX.setDuration(1000);
+        /*ObjectAnimator translateX = ObjectAnimator.ofFloat(holder.itemView, "translationX" , -20,20,-10,10,-5,5,0);
+        translateX.setDuration(1000);*/
 
-        animatorSet.playTogether(translateX,translateY);
+        animatorSet.playTogether(translateY);
         animatorSet.start();
 
     }

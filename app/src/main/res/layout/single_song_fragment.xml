@@ -7,7 +7,7 @@
     android:weightSum="10"
     android:elevation="30dp"
     android:background="@drawable/song_items_shadows"
-    android:layout_margin="5dp"
+    android:layout_margin="2dp"
     android:id="@+id/item_container_root">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -60,6 +60,8 @@
         android:layout_weight="1"
         android:text="&#8942;"
         android:textSize="15dp"
-        android:textColor="#FFFFFF"/>
+        android:textColor="#FFFFFF"
+        android:gravity="center"
+        android:layout_gravity="center"/>
 
 </LinearLayout>
